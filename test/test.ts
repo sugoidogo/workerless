@@ -1,4 +1,4 @@
-import WorkerlessPool from "../src/workerless.ts";
+import WorkerlessPool from "../dist/workerless.js";
 
 const workerless = new WorkerlessPool()
 console.log(await workerless.run(() => "Hello Workerless!"))
