@@ -4,11 +4,20 @@ simmilar to serverless functions.
 
 # Usage
 ```js
-import workerless from 'workerless'
+import WorkerlessPool from 'workerless'
 
-const result=await workerless.run(()=>cpuIntensiveoperation())
-
-workerless.terminate() // this is required for node programs to exit gracefully
+const workerless=new WorkerlessPool()
+const results=[]
+for(const bigData of dataSet){
+    // keep in mind that your function will run in a fresh new scope,
+    // so any data you want it to use must me passed as an argument.
+    workerless.run((data)=>{
+        // any libraries will need to be imported in the new scope
+        const analyze=(await import('analyze')).default
+        return analyze(data)
+    },bigData).then((result)=>results.push(result))
+}
+workerless.terminate() // free the resources used by workerless, node scripts may not exit without this
 ```
 
 Workerless spawns one dedicated web worker (or `worker_thread` in nodejs via `web-workers`)
