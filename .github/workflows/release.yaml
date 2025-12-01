@@ -1,0 +1,38 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - "*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: latest
+      - name: Prepare
+        run: npm install
+      - name: Build
+        run: npm pack
+      - name: Rename release file
+        run: mv workerless*.tgz workerless.tgz
+      - name: Generate release notes
+        run: git log $(git describe --tags --abbrev=0 HEAD~1)..HEAD --oneline > changelog.txt
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          make_latest: true
+          body_path: changelog.txt
+          files: workerless.tgz
+          overwrite_files: false
