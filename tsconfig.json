@@ -6,7 +6,10 @@
         "lib": ["ESNext"],
         "sourceMap": true,
         "declaration": true,
-        "declarationMap": true
+        "declarationMap": true,
+        "typeRoots": [
+            "node_modules/@types"
+        ]
     },
     "include": [
         "src/**/*.ts"

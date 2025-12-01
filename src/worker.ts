@@ -1,7 +1,7 @@
-onmessage = async function (messageEvent) {
+addEventListener('message', async function (messageEvent) {
     const response:any={id:messageEvent.data.id}
     try {
-        response.value=await new Function(`return ${messageEvent.data.func}`)()()
+        response.value = await new Function(`return ${messageEvent.data.func}`)()(...messageEvent.data.args)
     } catch (reason) {
         if (reason instanceof Error) {
             reason = {
@@ -15,4 +15,4 @@ onmessage = async function (messageEvent) {
     } finally {
         postMessage(response)
     }
-}
+})

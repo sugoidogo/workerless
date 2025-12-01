@@ -1,6 +1,6 @@
 {
   "name": "workerless",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": {
     "email": "workerless@sugoidogo.com",
     "name": "SugoiDogo",
@@ -15,18 +15,18 @@
   "license": "LGPL-3.0-or-later",
   "main": "src/workerless.js",
   "types": "src/workerless.d.ts",
-  "files": ["src"],
-  "module": "esm",
+  "files": [
+    "src"
+  ],
+  "type": "module",
   "scripts": {
     "test": "node test/test.ts",
-    "pretest": "tsc src/worker.ts --lib esnext",
+    "pretest": "npm run prepack",
     "prepack": "tsc"
   },
   "devDependencies": {
     "@types/node": "^24.10.1",
     "@types/web": "^0.0.294",
-    "bun": "^1.3.3",
-    "deno": "^2.5.6",
     "typescript": "^5.9.3"
   },
   "dependencies": {
