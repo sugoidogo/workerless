@@ -10,7 +10,7 @@ const workerless=new WorkerlessPool()
 const results=[]
 for(const bigData of dataSet){
     // keep in mind that your function will run in a fresh new scope,
-    // so any data you want it to use must me passed as an argument.
+    // so any data you want it to use must be passed as an argument.
     workerless.run((data)=>{
         // any libraries will need to be imported in the new scope
         const analyze=(await import('analyze')).default
