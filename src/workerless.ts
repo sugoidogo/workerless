@@ -1,7 +1,7 @@
 if (!globalThis.Worker) {
     globalThis.Worker = await import('web-worker').then(module => module.default)
 }
-
+// @ts-expect-error
 const defaultThreads = await import('node:os').then(module => module.cpus().length).catch(() => {
     if (navigator && navigator.hardwareConcurrency) {
         return navigator.hardwareConcurrency
