@@ -4,7 +4,6 @@ on:
   push:
     tags:
       - "*"
-  workflow_dispatch:
 
 permissions:
   contents: write
@@ -31,10 +30,13 @@ jobs:
         run: mv workerless*.tgz workerless.tgz
       - name: Generate release notes
         run: git log $(git describe --tags --abbrev=0 HEAD~1)..HEAD --oneline > changelog.txt
-      - name: Release
+      - name: Github Release
         uses: softprops/action-gh-release@v2
         with:
           make_latest: true
           body_path: changelog.txt
           files: workerless.tgz
-          overwrite_files: false
+      - name: NPM Release
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
