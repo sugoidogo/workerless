@@ -22,7 +22,9 @@ jobs:
         with:
           node-version: latest
       - name: Prepare
-        run: npm install
+        run: npm ci
+      - name: Test
+        run: npm test
       - name: Build
         run: npm pack
       - name: Rename release file
