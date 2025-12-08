@@ -21,7 +21,7 @@
   ],
   "type": "module",
   "scripts": {
-    "test": "node test/test.ts",
+    "test": "node test/runtimes.ts",
     "pretest": "npm run prepack",
     "prepack": "tsc"
   },
